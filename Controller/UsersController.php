@@ -14,14 +14,55 @@ class UsersController extends AppController {
  * @var array
  */
 	public $components = array('Paginator');
+        //コンポーネント:各コントローラーに使えるようにする
+        public function beforeFilter() {
+//            $this->layout = 'admin';
+        }
+        
+        public function isAuthorized($user) {
+            //一覧表示と詳細表示は誰でも可能            
+            if (in_array($this->action, array('index','view','login','logout'))) {
+                return true;
+            }  
 
-/**
+            // adminは編集や削除や追加ができる
+            if (in_array($this->action, array('add','edit', 'delete'))) {
+                $postId = (int) $this->request->params['pass'][0];
+                if ($this->Post->isOwnedBy($postId, $user['id'])) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+        
+        
+        
+        public function login(){
+            
+            if($this->request->is('post')){
+               if ($this->Auth->login()) {
+                    $this->redirect($this->Auth->redirect());
+                 } else {
+                    $this->Flash->error(('ユーザーネームかパスワードが間違ってます'));
+                 }
+            }
+        }
+           
+        public function logout() {  
+        
+                $this->redirect($this->Auth->logout());
+        }
+
+
+        
+        /**
  * index method
  *
  * @return void
  */
 	public function index() {
-		$this->User->recursive = 0;
+
 		$this->set('users', $this->Paginator->paginate());
 	}
 
@@ -36,7 +77,9 @@ class UsersController extends AppController {
 		if (!$this->User->exists($id)) {
 			throw new NotFoundException('ユーザーが存在しません');
 		}
-		$options = array('conditions' => array('id' => $id));
+		$options = array('conditions' => array('User.id' => $id));
+//                var_dump($this->User->find('first', $options));
+//                exit;
 		$this->set('user', $this->User->find('first', $options));
 	}
 
@@ -47,6 +90,8 @@ class UsersController extends AppController {
  */
 	public function add() {
 		if ($this->request->is('post')) {
+//                    var_dump($this->request->data);
+//                    exit;
 			$this->User->create();
 			if ($this->User->save($this->request->data)) {
 				$this->Flash->success(__('The user has been saved.'));
@@ -56,7 +101,7 @@ class UsersController extends AppController {
 			}
 		}
 	}
-
+        
 /**
  * edit method
  *
@@ -77,7 +122,13 @@ class UsersController extends AppController {
 			}
 		} else {
 			$options = array('conditions' => array('User.' . $this->User->primaryKey => $id));
-			$this->request->data = $this->User->find('first', $options);
+//			var_dump($options);
+//                        exit;
+                        
+                        $this->request->data = $this->User->find('first', $options);
+//                        var_dump($this->request->data);
+//                        exit;
+//                        エラーになってもリクエストデーターの中に入力されたデータが入り放し。
 		}
 	}
 
@@ -94,6 +145,7 @@ class UsersController extends AppController {
 			throw new NotFoundException(__('Invalid user'));
 		}
 		$this->request->allowMethod('post', 'delete');
+                
 		if ($this->User->delete()) {
 			$this->Flash->success(__('The user has been deleted.'));
 		} else {

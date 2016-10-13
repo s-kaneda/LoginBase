@@ -24,6 +24,27 @@ App::uses('Controller', 'Controller');
 class AppController extends Controller {
     public $components = array(
         'DebugKit.Toolbar',
-        'Flash'
+        'Flash',
+        'Auth' => array(
+            'loginRedirect' => array(
+                'controller' => 'users',
+                'action' => 'index'
+            ),
+            'logoutRedirect' => array(
+                'controller' => 'pages',
+                'action' => 'display',
+                'top'
+            ),
+            'authenticate' => array(
+                'Form' => array(
+                    'passwordHasher' => 'Blowfish'
+                )
+            ),
+//             'authorize' => array('Controller') // この行を追加
+
+        )
+        
     );
+    
+   
 }

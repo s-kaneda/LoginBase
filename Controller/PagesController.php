@@ -60,7 +60,11 @@ class PagesController extends AppController {
 		$this->set(compact('page', 'subpage', 'title_for_layout'));
 
 		try {
+//                    var_dump(implode('/', $path));
+//                    exit;
 			$this->render(implode('/', $path));
+                        //viewを表示している                        
+                        
 		} catch (MissingViewException $e) {
 			if (Configure::read('debug')) {
 				throw $e;
