@@ -16,7 +16,7 @@ class UsersController extends AppController {
 	public $components = array('Paginator');
         //コンポーネント:各コントローラーに使えるようにする
         public function beforeFilter() {
-//            $this->layout = 'admin';
+            $this->layout = 'admin';
         }
         
         public function isAuthorized($user) {
@@ -42,9 +42,10 @@ class UsersController extends AppController {
             
             if($this->request->is('post')){
                if ($this->Auth->login()) {
+                    $this->Flash->success(('ログインしました'));
                     $this->redirect($this->Auth->redirect());
                  } else {
-                    $this->Flash->error(('ユーザーネームかパスワードが間違ってます'));
+                    $this->Flash->danger(('ユーザーネームかパスワードが間違ってます'));
                  }
             }
         }

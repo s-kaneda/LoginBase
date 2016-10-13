@@ -40,7 +40,7 @@ class AppController extends Controller {
                     'passwordHasher' => 'Blowfish'
                 )
             ),
-//             'authorize' => array('Controller') // この行を追加
+             'authorize' => array('Controller') // この行を追加
 
         )
         
