@@ -26,22 +26,27 @@
 </head>
 <body>
     
-    <?php echo $this->element('navbar_admin'); ?>
+    <?php echo $this->element('admin/navbar_admin'); ?>
     
 	<div class="container">
-		<div id="header">
-			
-		</div>
 		<div id="content">
-
 			<?php echo $this->Session->flash(); ?>
-
-			<?php echo $this->fetch('content'); ?>
+            
+            <div class="row">
+                <div class="col-md-3">
+                    <?php echo $this->element('admin/menu'); ?>                    
+                </div>
+                <div class="col-md-9">
+                    <?php echo $this->fetch('content'); ?>                    
+                </div>                
+            </div>    
 		</div>
 		<div id="footer">
 			フッター
 		</div>
 	</div>
+    <!--<p><?= var_dump($login_user);?></p>-->
+    
 	<?php echo $this->element('sql_dump'); ?>
 </body>
 </html>

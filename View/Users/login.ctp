@@ -5,9 +5,8 @@
         <div class="col-md-4 col-md-offset-4">
             <h2>ログイン</h2>
             <?= $this->Form->create('User', array('novalidate' => true)); ?>
-                <?php var_dump($this->Form->isFieldError('username'));?>
                 
-                <div class="form-group <?php if($this->Form->isFieldError('username')){ echo 'has-error';}?>">
+                <div class="form-group">
                     <?= $this->Form->input('username', [
                         'label' => 'ユーザーネーム',
                         'class'=>'form-control', 
