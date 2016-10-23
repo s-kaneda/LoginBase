@@ -1,34 +1,24 @@
 <div class="users view">
-<h2>User</h2>
-	<dl>
-		<dt><?php echo __('Id'); ?></dt>
-		<dd>
-			<?php echo h($user['User']['id']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Username'); ?></dt>
-		<dd>
-			<?php echo h($user['User']['username']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Password'); ?></dt>
-		<dd>
-			<?php echo h($user['User']['password']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Role'); ?></dt>
-		<dd>
-			<?php echo h($user['User']['role']); ?>
-			&nbsp;
-		</dd>
-	</dl>
-</div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-		<li><?php echo $this->Html->link(__('Edit User'), array('action' => 'edit', $user['User']['id'])); ?> </li>
-		<li><?php echo $this->Form->postLink(__('Delete User'), array('action' => 'delete', $user['User']['id']), array('confirm' => __('Are you sure you want to delete # %s?', $user['User']['id']))); ?> </li>
-		<li><?php echo $this->Html->link(__('List Users'), array('action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New User'), array('action' => 'add')); ?> </li>
-	</ul>
+    <h2>ユーザー情報</h2>        
+    <table class="table table-bordered">
+
+        <tr>
+            <th style="width: 30%">Id</th>
+            <td><?php echo h($user['User']['id']); ?></td>
+        </tr>
+        <tr>
+            <th>ユーザー名</th>
+            <td><?php echo h($user['User']['username']); ?></td>
+        </tr>
+        <tr>
+            <th>権限</th>
+            <td><?php echo h($user['User']['role']); ?></td>
+        </tr>                                                
+
+    </table>
+    <button type="button" class="btn btn-default"><?php echo $this->Html->link('戻る', array('action' => 'index')); ?></button>
+    <?php if($login_user['role'] =='admin'):?>
+    <button type="button" class="btn btn-default"><?php echo $this->Html->link('編集', array('action' => 'edit', $user['User']['id'])); ?></button>
+    <button type="button" class="btn btn-danger"><?php echo $this->Form->postLink('削除', array('action' => 'delete', $user['User']['id']), array('confirm' => '本当に削除してもよろしいですか？', $user['User']['id'])); ?></button>
+    <?php endif ;?>    
 </div>

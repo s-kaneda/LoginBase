@@ -13,50 +13,65 @@ class UsersController extends AppController {
  *
  * @var array
  */
-	public $components = array('Paginator');
-        //コンポーネント:各コントローラーに使えるようにする
-        public function beforeFilter() {
-//            $this->layout = 'admin';
+	public $components = array(
+        'Paginator'=>[
+            'limit'=>3
+        ],
+        'session',
+    );    
+    //コンポーネント:各コントローラーに使えるようにする
+    public function beforeFilter() {
+        parent::beforeFilter();
+        $this->layout = 'admin';
+    }
+
+    public function isAuthorized($user) {
+//            parent::isAuthorized();
+        //一覧表示と詳細表示は誰でも可能            
+        if (in_array($this->action, array('index','view','login','logout'))) {
+            return true;
+        }  
+        if($user['role'] ==='admin'){
+            return true;
         }
         
-        public function isAuthorized($user) {
-            //一覧表示と詳細表示は誰でも可能            
-            if (in_array($this->action, array('index','view','login','logout'))) {
-                return true;
-            }  
-
-            // adminは編集や削除や追加ができる
-            if (in_array($this->action, array('add','edit', 'delete'))) {
-                $postId = (int) $this->request->params['pass'][0];
-                if ($this->Post->isOwnedBy($postId, $user['id'])) {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-        
-        
-        
-        public function login(){
+        if($this->action === 'edit') {
+//       ログインしたユーザーがeditアクションの時に編集しようとしてるユーザーとidが一致したらtrueを返す。   
             
-            if($this->request->is('post')){
-               if ($this->Auth->login()) {
-                    $this->redirect($this->Auth->redirect());
-                 } else {
-                    $this->Flash->error(('ユーザーネームかパスワードが間違ってます'));
-                 }
+            if( $this->params['pass'][0] === $user['id'])
+            {
+                return true;
             }
         }
-           
-        public function logout() {  
-        
-                $this->redirect($this->Auth->logout());
+
+        // adminは編集や削除や追加ができる //adminは上記以外のactionにアクセスできる
+//            }
+
+        return false;
+    }        
+
+    public function login(){
+        $this->layout = 'front';
+        if($this->request->is('post')){
+           if ($this->Auth->login()) {
+                $this->Flash->success(('ログインしました'));
+//                    var_dump($this->Auth->redirect());
+//                    exit;
+                $this->redirect(array('action'=>'index'));
+             } else {
+                $this->Flash->danger(('ユーザーネームかパスワードが間違ってます'));
+             }
         }
+    }
+
+    public function logout() {  
+
+            $this->redirect($this->Auth->logout());
+    }
 
 
-        
-        /**
+
+ /**
  * index method
  *
  * @return void
@@ -94,10 +109,10 @@ class UsersController extends AppController {
 //                    exit;
 			$this->User->create();
 			if ($this->User->save($this->request->data)) {
-				$this->Flash->success(__('The user has been saved.'));
+				$this->Flash->success('ユーザー登録完了しました');
 				return $this->redirect(array('action' => 'index'));
 			} else {
-				$this->Flash->error(__('The user could not be saved. Please, try again.'));
+				$this->Flash->error('ユーザー登録できませんでした。もう一度登録してください');
 			}
 		}
 	}

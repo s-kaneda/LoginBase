@@ -22,6 +22,13 @@ App::uses('Controller', 'Controller');
  * @link		http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
  */
 class AppController extends Controller {
+    
+    public function beforeFilter() {
+        parent::beforeFilter();
+        $this->set('login_user',$this->Auth->user());
+//        $this->render('navbar_admin');
+    }
+    
     public $components = array(
         'DebugKit.Toolbar',
         'Flash',
@@ -40,11 +47,12 @@ class AppController extends Controller {
                     'passwordHasher' => 'Blowfish'
                 )
             ),
-//             'authorize' => array('Controller') // この行を追加
-
+            'authorize' => array('Controller') // この行を追加
         )
         
     );
     
-   
+    public function isAuthorized($user) {
+        return true;
+    }   
 }

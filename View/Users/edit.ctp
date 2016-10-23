@@ -1,21 +1,35 @@
-<div class="users form">
-<?php echo $this->Form->create('User'); ?>
-	<fieldset>
-		<legend><?php echo __('Edit User'); ?></legend>
-	<?php
-		echo $this->Form->input('id');
-		echo $this->Form->input('username');
-		echo $this->Form->input('password');
-		echo $this->Form->input('role');
-	?>
-	</fieldset>
-<?php echo $this->Form->end(__('Submit')); ?>
-</div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
+<div class="users form">	
+    <h2>ユーザー情報編集</h2>
+    <?php echo $this->Form->create('User'); ?>
+    <div class="form-group">
+        <?=$this->Form->input('username',[
+            'type'=> 'text',
+            'label' => 'ユーザー名',
+            'class' => 'form-control',
+            'placeholder' => 'username',                                
+            ]);?>
+    </div>
+    <div class="form-group">
+        <?=$this->Form->input('password',[
+            'type'=> 'password',
+            'label' => 'パスワード',
+            'class' => 'form-control',
 
-		<li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $this->Form->value('User.id')), array('confirm' => __('Are you sure you want to delete # %s?', $this->Form->value('User.id')))); ?></li>
-		<li><?php echo $this->Html->link(__('List Users'), array('action' => 'index')); ?></li>
-	</ul>
+            ]);?>
+    </div>
+    <div class="form-group">
+        <?=$this->Form->input('role',[
+            'type'=> 'text',
+            'label' => '権限',
+            'class' => 'form-control',
+            'placeholder' => 'Role',                                
+            ]);?>
+    </div>
+    <button class="btn btn-primary">編集</button>           
+    <button class="btn btn-default"><?php echo $this->Html->link('戻る', array('action' => 'index')); ?></button>
+    <?php echo $this->Form->end(); ?><br>        
 </div>
+
+	
+	
+        
