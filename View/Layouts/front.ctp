@@ -78,9 +78,10 @@
             </div>
             
             <div id="footer">
-                フッター
-            </div>
+                  
+            </div>               
         </div>
+        
 	<?php echo $this->element('sql_dump'); ?>
     </body>
 </html>
