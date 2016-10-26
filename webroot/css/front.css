@@ -7,4 +7,52 @@ and open the template in the editor.
     Created on : 2016/09/14, 13:21:19
     Author     : suir
 */
+.topimage {
+    /*webroot/css配下のどこか､という記述になる*/
+      background: url("/img/azumino4.jpg");
+      background-position: center center;
+      /*画像を画面に合わせて最小サイズで表示*/
+      background-size: cover;
+      height: 700px;
+      color: #fff;
+      /*親要素*/
+      position: relative;
+      margin :auto 0;
+    }
 
+
+.squere{
+        background-color: blue;
+        
+        /*透過性*/
+        opacity: 0.8;
+        padding: 15px 15px;
+        margin-left: auto;
+        margin-right: auto;
+        width: 100%;
+        height:150px;
+        /*左寄せする要素を、親要素を基準left:0の絶対位置に配置する。*/
+        position: absolute; left: 0;
+
+    }
+ 
+    .glyphicon-flash {
+        font-size: 60px;
+    }
+    .glyphicon-sunglasses{
+        font-size: 60PX;
+    }
+    .icon-bar{
+        background-color:#C0C0C0;
+        height:80px;
+    }
+/*.line p {
+	color: #336666;  文字の色　#336666 
+}
+footer .line a {
+	color: #336666;  文字の色　#336666 
+}
+footer .line {
+	background-color: #00CCCC;  背景の色　#00CCCC 
+	padding: 20px 0;  内側の余白　上下20px　左右0 
+}*/

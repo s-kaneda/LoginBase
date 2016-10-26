@@ -78,9 +78,13 @@
             </div>
             
             <div id="footer">
-                フッター
-            </div>
+                <footer class="icon-bar">
+                    kaneda
+                </footer>
+                  
+            </div>               
         </div>
-	<?php echo $this->element('sql_dump'); ?>
+        
+	
     </body>
 </html>
