@@ -5,7 +5,7 @@
 CakePHP 2.8 で作成しています。
 
 
-![概要]
+![概要](https://raw.githubusercontent.com/s-kaneda/LoginBase/master/webroot/img/login_base.png)
 
 ## 要件
 
