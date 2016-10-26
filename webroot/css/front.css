@@ -42,12 +42,10 @@ and open the template in the editor.
     .glyphicon-sunglasses{
         font-size: 60PX;
     }
-.footer{
-    background-color: red;
-    width: 100%;
-    border-top: #2a2a2a 1px solid;
-    border-bottom: #2a2a2a 1px solid;
-}
+    .icon-bar{
+        background-color:#C0C0C0;
+        height:80px;
+    }
 /*.line p {
 	color: #336666;  文字の色　#336666 
 }
