@@ -78,9 +78,3 @@ $ Console/cake server -p 8000
 built-in server is running in http://localhost:8000/
 
 ```
-
-```
-
-```
-
-
